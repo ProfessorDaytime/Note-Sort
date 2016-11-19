@@ -1,0 +1,48 @@
+<html style="width:100%">
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/mb.slider.css" media="screen" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.metadata/2.0/jquery.metadata.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/jquery.mb.slider.js"></script>
+
+
+</head>
+<body style="width:100%; margin:0px">
+  <div class="header">
+    <img class = "logo" src="misc/LogoPlaceholder.png"/>
+    <div class="sortFunctionButtons">
+      <span class="sortFunctionButton">BUBBLE</span>
+      <span class="sortFunctionButton">MERGE</span>
+      <span class="sortFunctionButton">QUICK</span>
+      <span class="sortFunctionButton">INSERT</span>
+      <span class="sortFunctionButton">SELECT</span>
+      <span class="sortFunctionButton">COCKTAIL</span>
+    </div>
+  </div>
+  <div class="mainArea">
+    <canvas style="width:50%; height:100%; float:left"></canvas>
+    <canvas style="width:50%; height:100%; float:right"></canvas>
+  </div>
+  <div class="footer">
+    <div class="controls">
+      <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:1, grid:1, maxVal:20}"></div>
+      <button type="button"  class="btn footerButton">Reset</button>
+      <button type="button"  class="btn footerButton">Choose Song</button>
+    </div>
+
+  </div>
+  <script>
+    $("#speedSlider").mbSlider({
+      showVal: true,
+      formatValue: function (val) {
+        console.log(val);
+        var formatVal = "Speed: " + val/4 + "x";
+        return formatVal;
+      }
+    });
+  </script>
+</body>
+</html>
