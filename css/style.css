@@ -53,7 +53,21 @@
   width:100%;
   height: calc(100% - 120px)
 }
+.algStep {
+  color: #F80A94;
+  font-size: 16px;
+  font-family: bit;
+}
+.mainAlgStep{
+  color: #67C8FF;
+  font-size: 16px;
+  font-family: bit;
+}
 @font-face {
     font-family: alienEncounter;
     src: url(../misc/Alien-Encounters-Regular.ttf);
+}
+@font-face {
+    font-family: bit;
+    src: url(../misc/bit.ttf);
 }
