@@ -1,13 +1,14 @@
 <html style="width:100%">
 <head>
-  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="css/mb.slider.css" media="screen" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/jquery.metadata/2.0/jquery.metadata.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js/jquery.mb.slider.js"></script>
   <script src="js/algorithmSteps.js"></script>
+  <script src="js/Visualizer.js"></script>
   <script>
     window.onload = function(){
       //Initialize the speed slider
@@ -21,7 +22,7 @@
       });
 
 
-      writeSteps(["STEP 0","STEP 1","STEP 2","STEP 3","STEP 4","STEP 5","STEP 6","STEP 7","STEP 8","STEP 9"], 0);
+      writeSteps(["STEP 0","STEP 1","STEP 2","STEP 3","STEP 4","STEP 5","STEP 6","STEP 7","STEP 8","STEP 9"], [0, 1]);
 
     };
   </script>
@@ -31,12 +32,12 @@
   <div class="header">
     <img class = "logo" src="misc/LogoPlaceholder.png"/>
     <div class="sortFunctionButtons">
-      <span class="sortFunctionButton">BUBBLE</span>
-      <span class="sortFunctionButton">MERGE</span>
-      <span class="sortFunctionButton">QUICK</span>
-      <span class="sortFunctionButton">INSERT</span>
-      <span class="sortFunctionButton">SELECT</span>
-      <span class="sortFunctionButton">COCKTAIL</span>
+      <span class="sortFunctionButton" id="bubbleSort">BUBBLE</span>
+      <span class="sortFunctionButton" id="mergeSort">MERGE</span>
+      <span class="sortFunctionButton" id="quickSort">QUICK</span>
+      <span class="sortFunctionButton" id="insertSort">INSERT</span>
+      <span class="sortFunctionButton" id="selectSort">SELECT</span>
+      <span class="sortFunctionButton" id="cocktailSort">COCKTAIL</span>
     </div>
   </div>
   <div class="mainArea">
@@ -46,13 +47,25 @@
   <div class="footer">
     <div class="controls">
       <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:1, grid:1, maxVal:20}"></div>
-      <button type="button"  class="btn footerButton">Reset</button>
-      <button type="button"  class="btn footerButton">Choose Song</button>
+      <button type="button"  class="btn footerButton" id="pauseButton">Pause</button>
+      <button type="button"  class="btn footerButton" id="stepButton">Step</button>
+      <button type="button"  class="btn footerButton" id="resetButton">Reset</button>
+      <button type="button"  class="btn footerButton" id="songButton">Choose Song</button>
     </div>
 
   </div>
   <script>
-
+  $("#pauseButton").click(function() {
+    if ($(this).text() == "Pause") {
+      $(this).text("Play");
+    }
+    else {
+      $(this).text("Pause");
+    }
+  });
+  $("#quickSort").click(function () {
+    writeSteps(["quickSort()", "do stuff", "", "partition", "do other stuff"], [0, 3]);
+  });
   </script>
 </body>
 </html>
