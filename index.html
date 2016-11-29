@@ -87,20 +87,24 @@
     var frame = 0;
 
     var currGraphVals = [];
-    var prevGraphVals = [];
 
     function drawFrames(){
      setTimeout(function(){
        currGraphVals = frames[frame].data.map(function(obj){
           return obj.index;
         });
-
-        //if(!arraysEqual(currGraphVals, prevGraphVals)){
         d3.select("svg").remove();
         redraw(currGraphVals);
-        //}
         writeSteps(quicksortCode, frames[frame].algorithmSteps);
-        prevGraphVals = JSON.parse(JSON.stringify(currGraphVals));
+
+        if ('notesToPlay' in frames[frame]){
+          for(noteIndex of frames[frame].notesToPlay){
+            var noteFilePath = frames[frame].data[noteIndex].noteFile;
+            var audio = new Audio(noteFilePath);
+            audio.play();
+          }
+        }
+
         frame++;
         console.log(sliderVal);
         if( frames.length > frame ){drawFrames();}
