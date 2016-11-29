@@ -1,5 +1,9 @@
 var frames = [];
-var testData = [3, 6, 2, 7, 9];
+var quicksortCode = ["quickSort(A, lo, hi)", "&nbsp if lo < hi", "&nbsp&nbsp p = partition(A, lo, hi)",
+"&nbsp&nbsp quicksort(A, lo, p - 1)", "&nbsp&nbsp quicksort(A, p + 1, hi)", "", "partition(A, lo, hi)",
+"&nbsp pivot = A[hi]", "&nbsp i = lo", "&nbsp for j = lo to hi - 1", "&nbsp&nbsp if A[j] <= pivot",
+"&nbsp&nbsp&nbsp swap A[i] with A[j]", "&nbsp&nbsp&nbsp i++", "&nbsp swap A[i] with A[hi]", "&nbsp return i"];
+
 function swap(array, i, j) {
   var t = array[i];
   array[i] = array[j];
