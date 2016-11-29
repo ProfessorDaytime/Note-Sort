@@ -94,7 +94,7 @@
           return obj.index;
         });
         d3.select("svg").remove();
-        redraw(currGraphVals);
+        redraw(currGraphVals, frames[frame].importantIndices);
         writeSteps(quicksortCode, frames[frame].algorithmSteps);
 
         if ('notesToPlay' in frames[frame]){

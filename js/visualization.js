@@ -50,7 +50,7 @@ function draw(passedData) {
    .attr("fill", "white");*/
 }
 
-function redraw(passedData) {
+function redraw(passedData, importantIndices) {
   //Width and height
   var w = 500;
   var h = 200;
@@ -82,7 +82,11 @@ function redraw(passedData) {
       return d * 4;
    })
    .attr("fill", function(d) {
-    return "rgb(0, 0, " + (d * 10) + ")";
+      if(contains(importantIndices, d)){
+      return("White");
+      }
+      else{
+    return "rgb(0, 0, " + (d * 10) + ")";}
    });
 
   /*svg.selectAll("text")
@@ -103,3 +107,12 @@ function redraw(passedData) {
    .attr("font-size", "11px")
    .attr("fill", "white");*/
 }
+
+var contains = function(arr, val) {
+    for(value of arr){
+        if(value == val){
+            return true;
+        }
+    }
+    return false;
+};
