@@ -1,7 +1,7 @@
 function draw(passedData) {
   //Width and height
   var w = 500;
-  var h = 100;
+  var h = 200;
   var barPadding = 1;
   var dataset = [];
   for(var i = 0; i<passedData.data.length-1;i++){
@@ -53,13 +53,13 @@ function draw(passedData) {
 function redraw(passedData) {
   //Width and height
   var w = 500;
-  var h = 100;
+  var h = 200;
   var barPadding =1;
 
-  var dataset = [];
+  /*var dataset = [];
   for(var i = 0; i<passedData.data.length-1;i++){
     dataset.push(passedData.data[i].index);
-  }
+  }*/
 
   //Create SVG element
   var svg = d3.select("#myDiv")
@@ -68,16 +68,16 @@ function redraw(passedData) {
       .attr("height", h);
 
   svg.selectAll("rect")
-   .data(dataset)
+   .data(passedData)
    .enter()
    .append("rect")
    .attr("x", function(d, i) {
-      return i * (w / dataset.length);
+      return i * (w / passedData.length);
    })
    .attr("y", function(d) {
       return h - (d * 4);
    })
-   .attr("width", w / dataset.length - barPadding)
+   .attr("width", w / passedData.length - barPadding)
    .attr("height", function(d) {
       return d * 4;
    })

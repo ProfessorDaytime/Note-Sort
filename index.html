@@ -14,13 +14,16 @@
   <script src="js/visualization.js"></script>
   <script src="js/songs.js"></script>
   <script>
+    var sliderVal = 10;
     window.onload = function(){
       //Initialize the speed slider
       $("#speedSlider").mbSlider({
         showVal: true,
         formatValue: function (val) {
-          console.log(val);
+          //console.log(val);
           var formatVal = "Speed: " + val/4 + "x";
+          sliderVal = val/4;
+          console.log(sliderVal);
           return formatVal;
         }
       });
@@ -44,12 +47,12 @@
     </div>
   </div>
   <div class="mainArea">
-    <div style="width:50%; height:100%; float:left; padding-top:100px;" id="myDiv"></div>
+    <div style="width:50%; height:100%; float:left; margin-top:50px;" id="myDiv"></div>
     <div style="width:50%; height:100%; float:right; overflow:auto" id="algStepsDiv"></div>
   </div>
   <div class="footer">
     <div class="controls">
-      <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:1, grid:1, maxVal:20}"></div>
+      <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:20, grid:1, maxVal:20, minVal:1}"></div>
       <button type="button"  class="btn footerButton" id="pauseButton">Pause</button>
       <button type="button"  class="btn footerButton" id="stepButton">Step</button>
       <button type="button"  class="btn footerButton" id="resetButton">Reset</button>
@@ -72,22 +75,38 @@
     i++;
   });
   $("#quickSort").click(function () {
+    //Initialize song
     var songs = chromatic3Oct.slice(0);
-    console.log(songs);
+    songs.reverse();
+    //Run quicksort to generate frames
     i = 0;
     quicksort(songs, 0, songs.length-1);
+
+    //Draw first frame
     draw(frames[0]);
-    //draw(frames[0])
     var frame = 0;
-  //  bubbleSort(dataset);
-    var refreshIntervalId = setInterval(function(){
-       d3.select("svg").remove();
-       redraw(frames[frame]);
-       writeSteps(quicksortCode, frames[frame].algorithmSteps);
-       frame++;
-       if( frames.length == frame )
-       {clearInterval(refreshIntervalId);}},
-       1);
+
+    var currGraphVals = [];
+    var prevGraphVals = [];
+
+    function drawFrames(){
+     setTimeout(function(){
+       currGraphVals = frames[frame].data.map(function(obj){
+          return obj.index;
+        });
+
+        //if(!arraysEqual(currGraphVals, prevGraphVals)){
+        d3.select("svg").remove();
+        redraw(currGraphVals);
+        //}
+        writeSteps(quicksortCode, frames[frame].algorithmSteps);
+        prevGraphVals = JSON.parse(JSON.stringify(currGraphVals));
+        frame++;
+        console.log(sliderVal);
+        if( frames.length > frame ){drawFrames();}
+     }, 100/sliderVal)
+    }
+    drawFrames();
 
   });
   </script>

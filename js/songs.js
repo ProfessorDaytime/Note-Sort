@@ -1,5 +1,5 @@
 var chromatic3Oct = [{
-		"index": 31,
+		"index": 0,
 		"colorInHex": "#0099ff",
 		"noteFile": "notes/C4.mp3"
 	},
@@ -35,13 +35,13 @@ var chromatic3Oct = [{
 	},
 
 	{
-		"index": 29,
+		"index": 6,
 		"colorInHex": "#0099ff",
 		"noteFile": "notes/Fsh4.mp3"
 	},
 
 	{
-		"index": 10,
+		"index": 7,
 		"colorInHex": "#0099ff",
 		"noteFile": "notes/G4.mp3"
 	},
@@ -59,7 +59,7 @@ var chromatic3Oct = [{
 	},
 
 	{
-		"index": 7,
+		"index": 10,
 		"colorInHex": "#0099ff",
 		"noteFile": "notes/Ash4.mp3"
 	},
@@ -173,7 +173,7 @@ var chromatic3Oct = [{
 	},
 
 	{
-		"index": 6,
+		"index": 29,
 		"colorInHex": "#0099ff",
 		"noteFile": "notes/F6.mp3"
 	},
@@ -185,7 +185,7 @@ var chromatic3Oct = [{
 	},
 
 	{
-		"index": 0,
+		"index": 31,
 		"colorInHex": "#0099ff",
 		"noteFile": "notes/G6.mp3"
 	},
