@@ -13,8 +13,11 @@
   <script src="js/algorithms.js"></script>
   <script src="js/visualization.js"></script>
   <script src="js/songs.js"></script>
+  <script src="js/misc.js"></script>
   <script>
     var sliderVal = 10;
+    var paused = true;
+    var stepActive = false;
     window.onload = function(){
       //Initialize the speed slider
       $("#speedSlider").mbSlider({
@@ -53,7 +56,7 @@
   <div class="footer">
     <div class="controls">
       <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:20, grid:1, maxVal:20, minVal:1}"></div>
-      <button type="button"  class="btn footerButton" id="pauseButton">Pause</button>
+      <button type="button"  class="btn footerButton" id="pauseButton">Play</button>
       <button type="button"  class="btn footerButton" id="stepButton">Step</button>
       <button type="button"  class="btn footerButton" id="resetButton">Reset</button>
       <button type="button"  class="btn footerButton" id="songButton">Choose Song</button>
@@ -64,25 +67,27 @@
   $("#pauseButton").click(function() {
     if ($(this).text() == "Pause") {
       $(this).text("Play");
+      paused = true;
     }
     else {
       $(this).text("Pause");
+      paused = false;
     }
   });
-  var i = 0;
   $("#stepButton").click(function() {
-    writeSteps(quicksortCode, frames[i].algorithmSteps);
-    i++;
+    stepActive = true;
   });
   $("#quickSort").click(function () {
+    d3.select("svg").remove();
+    //frames.lengh = 0;
     //Initialize song
     var songs = chromatic3Oct.slice(0);
-    songs.reverse();
+    songs = shuffle(songs);
     //Run quicksort to generate frames
-    i = 0;
     quicksort(songs, 0, songs.length-1);
 
     //Draw first frame
+    writeSteps(quicksortCode, [0]);
     draw(frames[0]);
     var frame = 0;
 
@@ -90,23 +95,25 @@
 
     function drawFrames(){
      setTimeout(function(){
-       currGraphVals = frames[frame].data.map(function(obj){
-          return obj.index;
-        });
-        d3.select("svg").remove();
-        redraw(currGraphVals, frames[frame].importantIndices);
-        writeSteps(quicksortCode, frames[frame].algorithmSteps);
+       if(!paused || stepActive){
+         currGraphVals = frames[frame].data.map(function(obj){
+            return obj.index;
+          });
+          d3.select("svg").remove();
+          redraw(currGraphVals, frames[frame].importantIndices);
+          writeSteps(quicksortCode, frames[frame].algorithmSteps);
 
-        if ('notesToPlay' in frames[frame]){
-          for(noteIndex of frames[frame].notesToPlay){
-            var noteFilePath = frames[frame].data[noteIndex].noteFile;
-            var audio = new Audio(noteFilePath);
-            audio.play();
+          if ('notesToPlay' in frames[frame]){
+            for(noteIndex of frames[frame].notesToPlay){
+              var noteFilePath = frames[frame].data[noteIndex].noteFile;
+              var audio = new Audio(noteFilePath);
+              audio.play();
+            }
           }
-        }
 
-        frame++;
-        console.log(sliderVal);
+          frame++;
+        }
+        stepActive = false;
         if( frames.length > frame ){drawFrames();}
      }, 100/sliderVal)
     }
