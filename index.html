@@ -1,5 +1,6 @@
 <html style="width:100%">
 <head>
+  <meta charset="utf-8"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="css/mb.slider.css" media="screen" />
@@ -7,8 +8,11 @@
   <script src="https://cdn.jsdelivr.net/jquery.metadata/2.0/jquery.metadata.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js/jquery.mb.slider.js"></script>
+  <script src="js/d3.min.js"></script>
   <script src="js/algorithmSteps.js"></script>
   <script src="js/algorithms.js"></script>
+  <script src="js/visualization.js"></script>
+  <script src="js/songs.js"></script>
   <script>
     window.onload = function(){
       //Initialize the speed slider
@@ -20,7 +24,6 @@
           return formatVal;
         }
       });
-
 
       writeSteps(["STEP 0","STEP 1","STEP 2","STEP 3","STEP 4","STEP 5","STEP 6","STEP 7","STEP 8","STEP 9"], [0, 1]);
 
@@ -41,7 +44,7 @@
     </div>
   </div>
   <div class="mainArea">
-    <canvas style="width:50%; height:100%; float:left"></canvas>
+    <div style="width:50%; height:100%; float:left; padding-top:100px;" id="myDiv"></div>
     <div style="width:50%; height:100%; float:right; overflow:auto" id="algStepsDiv"></div>
   </div>
   <div class="footer">
@@ -69,9 +72,23 @@
     i++;
   });
   $("#quickSort").click(function () {
+    var songs = chromatic3Oct.slice(0);
+    console.log(songs);
     i = 0;
-    quicksort(testData, 0, testData.length);
-    writeSteps(quicksortCode, [0]);
+    quicksort(songs, 0, songs.length-1);
+    draw(frames[0]);
+    //draw(frames[0])
+    var frame = 0;
+  //  bubbleSort(dataset);
+    var refreshIntervalId = setInterval(function(){
+       d3.select("svg").remove();
+       redraw(frames[frame]);
+       writeSteps(quicksortCode, frames[frame].algorithmSteps);
+       frame++;
+       if( frames.length == frame )
+       {clearInterval(refreshIntervalId);}},
+       1);
+
   });
   </script>
 </body>

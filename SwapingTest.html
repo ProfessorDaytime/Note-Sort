@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Demo: Making a bar chart with value labels!</title>
+        <div id = "myDiv">stuff go here</div>
+        <script type="text/javascript" src="d3/d3.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+        var fullshit =[];
+        var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+                11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+
+        function bubbleSort(a)
+        {
+            var swapped;
+            do {
+                swapped = false;
+                for (var i=0; i < a.length-1; i++) {
+                    if (a[i] > a[i+1]) {
+                        var temp = a[i];
+                        a[i] = a[i+1];
+                        a[i+1] = temp;
+                        swapped = true;
+                        fullshit.push(a.slice(0));
+                        //d3.select("svg").remove()
+                    }
+                }
+            } while (swapped);
+        }
+
+
+        function draw(passedData) {
+			//Width and height
+			var w = 500;
+			var h = 100;
+			var barPadding = 1;
+
+
+			//Create SVG element
+			var svg = d3.select("#myDiv")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			svg.selectAll("rect")
+			   .data(dataset)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return i * (w / passedData.length);
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d * 4);
+			   })
+			   .attr("width", w / passedData.length - barPadding)
+			   .attr("height", function(d) {
+			   		return d * 4;
+			   })
+			   .attr("fill", function(d) {
+					return "rgb(0, 0, " + (d * 10) + ")";
+			   });
+
+			svg.selectAll("text")
+			   .data(passedData)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d;
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d, i) {
+			   		return i * (w / passedData.length) + (w / passedData.length - barPadding) / 2;
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d * 4) + 14;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "white");
+        }
+
+        function redraw(passedData, passedFrame) {
+			//Width and height
+			var w = 500;
+			var h = 100;
+			var barPadding =1;
+
+            var Currentarray = passedData[passedFrame];
+            console.log(passedFrame);
+			console.log(Currentarray);
+
+			//Create SVG element
+			var svg = d3.select("#myDiv")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			svg.selectAll("rect")
+			   .data(Currentarray)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return i * (w / Currentarray.length);
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d * 4);
+			   })
+			   .attr("width", w / Currentarray.length - barPadding)
+			   .attr("height", function(d) {
+			   		return d * 4;
+			   })
+			   .attr("fill", function(d) {
+					return "rgb(0, 0, " + (d * 10) + ")";
+			   });
+
+			svg.selectAll("text")
+			   .data(Currentarray)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d;
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d, i) {
+			   		return i * (w / Currentarray.length) + (w / Currentarray.length - barPadding) / 2;
+			   })
+			   .attr("y", function(d) {
+			   		return h - (d * 4) + 14;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "white");
+        }
+
+        draw(frame);
+        var frame = 0;
+        //bubbleSort(dataset);
+        var refreshIntervalId = setInterval(function(){
+             d3.select("svg").remove();
+             redraw(frames, frame);
+             frame++;
+             if( frames.length == frame )
+             {clearInterval(refreshIntervalId);}},
+             100);
+
+
+
+		</script>
+	</body>
+</html>
