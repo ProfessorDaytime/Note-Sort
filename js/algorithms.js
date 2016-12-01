@@ -1,4 +1,3 @@
-var frames = [];
 var quicksortCode = ["quickSort(A, lo, hi)", "&nbsp if lo < hi", "&nbsp&nbsp p = partition(A, lo, hi)",
 "&nbsp&nbsp quicksort(A, lo, p - 1)", "&nbsp&nbsp quicksort(A, p + 1, hi)", "", "partition(A, lo, hi)",
 "&nbsp pivot = A[hi]", "&nbsp i = lo", "&nbsp for j = lo to hi - 1", "&nbsp&nbsp if A[j] <= pivot",
@@ -31,13 +30,13 @@ function partition(A, lo, hi) {
   for (var j = lo; j < hi; j++) {
     // frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 10], importantIndices:[j, hi]});
     if (A[j].index <= pivot) {
-      frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 11, 12], importantIndices:[i, j],notesToPlay:[i, j]});
+      frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 11, 12], importantIndices:[i, j]});
       swap(A, i, j);
       // frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 12], importantIndices:[i]});
       i++;
     }
   }
-  frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 13], importantIndices:[i, hi], notesToPlay:[i, hi]});
+  frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 13], importantIndices:[i, hi]});
   swap(A, i, hi);
   frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 14], importantIndices:[i]});
   return i;
