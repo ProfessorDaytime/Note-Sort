@@ -28,11 +28,11 @@ function partition(A, lo, hi) {
   var i = lo;
   frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 9], importantIndices:[lo, hi]});
   for (var j = lo; j < hi; j++) {
-    // frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 10], importantIndices:[j, hi]});
+    frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 10], importantIndices:[j, hi]});
     if (A[j].index <= pivot) {
-      frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 11, 12], importantIndices:[i, j]});
+      frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 11], importantIndices:[i, j]});
       swap(A, i, j);
-      // frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 12], importantIndices:[i]});
+      frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 12], importantIndices:[i]});
       i++;
     }
   }
