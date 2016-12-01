@@ -41,3 +41,10 @@ function partition(A, lo, hi) {
   frames.push({data:JSON.parse(JSON.stringify(A)), algorithmSteps:[6, 14], importantIndices:[i]});
   return i;
 }
+
+function addSongFrames(){
+  var lastFrame = frames[frames.length-1];
+  for(var i=0; i<lastFrame.data.length; i++){
+    frames.push({data:lastFrame.data, algorithmSteps:[0], importantIndices:[i]});
+  }
+}

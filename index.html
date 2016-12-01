@@ -33,7 +33,6 @@
           //console.log(val);
           var formatVal = "Speed: " + val/4 + "x";
           sliderVal = val/4;
-          console.log(sliderVal);
           return formatVal;
         }
       });
@@ -54,15 +53,16 @@
         clear();
         runningAlgorithm = "quickSort";
         //Initialize song
-        var song = chromatic3Oct.slice(0);
-        song = shuffle(song);
+        var song = harderBetterFasterStronger.slice(0);
+        var shuffeledSong = shuffle(song);
         //Run quicksort to generate frames
-        quicksort(JSON.parse(JSON.stringify(song)), 0, song.length-1);
+        quicksort(JSON.parse(JSON.stringify(shuffeledSong)), 0, shuffeledSong.length-1);
+        addSongFrames();
 
         //Draw first initial state
-        draw(song.map(function(obj){return obj.index;}),[]);
+        draw(shuffeledSong.map(function(obj){return obj.index;}),[]);
         writeSteps(quicksortCode, [0]);
-        drawFrames();
+        drawFramesAndPlaySong();
       });
       //Resets current sort by setting frame back to 0 and pausing
       $("#resetButton").click(function(){
@@ -75,7 +75,7 @@
 </head>
 <body style="width:100%; margin:0px">
   <div class="header">
-    <img class = "logo" src="misc/LogoPlaceholder.png"/>
+    <img class = "logo" src="misc/logo.png"/>
     <div class="sortFunctionButtons">
       <span class="sortFunctionButton" id="bubbleSort">BUBBLE</span>
       <span class="sortFunctionButton" id="mergeSort">MERGE</span>
@@ -86,8 +86,8 @@
     </div>
   </div>
   <div class="mainArea">
-    <div style="width:50%; height:100%; float:left; margin-top:50px; padding-left:50px;" id="myDiv"></div>
-    <div style="width:50%; height:100%; float:right; overflow:auto" id="algStepsDiv"></div>
+    <div style="width:55%; height:100%; float:left; margin-top:50px; padding-left:100px;" id="myDiv"></div>
+    <div style="width:45%; height:100%; float:right; overflow:auto; padding-top: 100px;" id="algStepsDiv"></div>
   </div>
   <div class="footer">
     <div class="controls">

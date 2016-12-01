@@ -6,7 +6,7 @@
 function draw(frameData, importantIndices) {
   //Width and height
   var w = 500;
-  var h = 200;
+  var h = 400;
   var barPadding =1;
 
   //Create SVG element
@@ -23,11 +23,11 @@ function draw(frameData, importantIndices) {
       return i * (w / frameData.length);
    })
    .attr("y", function(d) {
-      return h - (d * 4);
+      return h-(h/frameData.length) * d;
    })
    .attr("width", w / frameData.length - barPadding)
    .attr("height", function(d) {
-      return (d+1) * 4;
+      return (h/frameData.length) * d;
    })
    .attr("fill", function(d) {
       if(contains(importantIndices, d)){
@@ -54,7 +54,7 @@ function draw(frameData, importantIndices) {
   Set global variable "frame" to change which frame we are currently playing
   Set global variable "frames" to change the list of frames which will be drawn
 */
-function drawFrames(){
+function drawFramesAndPlaySong(){
   setTimeout(function(){
     if(!paused || stepActive){
       var currFrame = frames[frame];
@@ -83,10 +83,8 @@ function drawFrames(){
     stepActive = false;
 
     //Continue to loop until we reach the last frame or a breakout is triggered
-    if( frame < frames.length )
-    {
-      drawFrames();
-    }
+    if( frame < frames.length && frames.length>0 )
+      drawFramesAndPlaySong();
   }, 100/sliderVal)
 }
 
