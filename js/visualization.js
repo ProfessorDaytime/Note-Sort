@@ -27,14 +27,23 @@ function draw(frameData, importantIndices) {
    })
    .attr("width", w / frameData.length - barPadding)
    .attr("height", function(d) {
-      return d * 4;
+      return (d+1) * 4;
    })
    .attr("fill", function(d) {
       if(contains(importantIndices, d)){
       return("White");
       }
       else{
-    return "rgb(0, 0, " + (d * 10) + ")";}
+        if(d == 0){
+          return "(103,200,255)"
+        }
+        else{
+          var r = Math.round(103+145*(d/(frameData.length-1)));
+          var g = Math.round(200-190*(d/(frameData.length-1)));
+          var b = Math.round(255-107*(d/(frameData.length-1)));
+          return "rgb("+ r +","+ g +","+ b +")";
+        }
+      }
    });
 }
 
