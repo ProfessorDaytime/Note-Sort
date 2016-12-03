@@ -49,14 +49,16 @@ function draw(frameData, importantIndices) {
 
 /*
   Draws all frames in passed frames array
+  Variable loop num acts as an ID for the draw loop.  We only want one drawing at a time so we use it break the loop if loopNum != currLoop
   Set global variable paused to "paused" animation
   Set global variable "stepActive" to play animation for one frame
   Set global variable "frame" to change which frame we are currently playing
   Set global variable "frames" to change the list of frames which will be drawn
+
 */
-function drawFramesAndPlaySong(){
+function drawFramesAndPlaySong(loopNum){
   setTimeout(function(){
-    if(!paused || stepActive){
+    if((!paused || stepActive) && loopNum == currLoop){
       var currFrame = frames[frame];
 
       //Get the bar graph values for the frame
@@ -68,7 +70,6 @@ function drawFramesAndPlaySong(){
       draw(currGraphVals, currFrame.importantIndices);
 
       writeSteps(quicksortCode, currFrame.algorithmSteps);
-
       //Play notes associated with current frame
       for(noteIndex of currFrame.importantIndices){
         if(noteIndex >=0 && noteIndex <= currFrame.data.length-1){
@@ -82,9 +83,9 @@ function drawFramesAndPlaySong(){
     }
     stepActive = false;
 
-    //Continue to loop until we reach the last frame or a breakout is triggered
-    if( frame < frames.length && frames.length>0 )
-      drawFramesAndPlaySong();
+    //Continue to loop until we reach the last frame or a new loop is created
+    if( frame < frames.length && frames.length>0 && loopNum == currLoop )
+      drawFramesAndPlaySong(loopNum);
   }, 100/sliderVal)
 }
 

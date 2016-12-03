@@ -46,6 +46,7 @@ function selectSong(songName){
 
 function playAlgorithm(algFunc, algName){
   clear();
+  currLoop++;
   runningAlgorithm = algName;
   //Initialize song
   //var song = harderBetterFasterStronger.slice(0);
@@ -57,5 +58,5 @@ function playAlgorithm(algFunc, algName){
   //Draw first initial state
   draw(shuffeledSong.map(function(obj){return obj.index;}),[]);
   writeSteps(quicksortCode, [0]);
-  drawFramesAndPlaySong();
+  drawFramesAndPlaySong(currLoop);
 }
