@@ -23,11 +23,11 @@ function draw(frameData, importantIndices) {
       return i * (w / frameData.length);
    })
    .attr("y", function(d) {
-      return h-(h/frameData.length) * d;
+      return h-(h/frameData.length) * (d);
    })
    .attr("width", w / frameData.length - barPadding)
    .attr("height", function(d) {
-      return (h/frameData.length) * d;
+      return (h/frameData.length) * (d);
    })
    .attr("fill", function(d) {
       if(contains(importantIndices, d)){

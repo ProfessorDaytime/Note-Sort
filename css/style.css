@@ -23,6 +23,14 @@
   overflow: hidden;
   white-space:nowrap;
 }
+.songName{
+  color: WHITE;
+}
+.songName:hover{
+  background-color: #67C8FF;
+  color: WHITE;
+  cursor: pointer;
+}
 .logo{
   max-height: 59px;
 }

@@ -38,3 +38,24 @@ function clear(){
 	runningAlgorithm = "";
 	$("#pauseButton").text("Play");
 };
+
+function selectSong(songName){
+  song = songs[songName];
+  $("#resetButton").trigger("click");
+};
+
+function playAlgorithm(algFunc, algName){
+  clear();
+  runningAlgorithm = algName;
+  //Initialize song
+  //var song = harderBetterFasterStronger.slice(0);
+  var shuffeledSong = shuffle(song);
+  //Run quicksort to generate frames
+  algFunc(JSON.parse(JSON.stringify(shuffeledSong)), 0, shuffeledSong.length-1);
+  addSongFrames();
+
+  //Draw first initial state
+  draw(shuffeledSong.map(function(obj){return obj.index;}),[]);
+  writeSteps(quicksortCode, [0]);
+  drawFramesAndPlaySong();
+}

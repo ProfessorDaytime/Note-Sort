@@ -10,7 +10,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="js/jquery.mb.slider.js"></script>
   <script src="js/d3.min.js"></script>
-
+  <!-- My Scripts -->
+  <script src="js/algorithms.js"></script>
+  <script src="js/visualization.js"></script>
+  <script src="js/songs.js"></script>
+  <script src="js/misc.js"></script>
   <script>
     //Global variables
     var sliderVal = 10;//Speeds up and slows down frame draw loop
@@ -19,11 +23,8 @@
     var frames = [];//Stores frames to draw
     var frame = 0;//Stores current frame
     var runningAlgorithm = "";
+    var song = songs.chromatic3Oct;
   </script>
-  <script src="js/algorithms.js"></script>
-  <script src="js/visualization.js"></script>
-  <script src="js/songs.js"></script>
-  <script src="js/misc.js"></script>
   <script>
     window.onload = function(){
       //Initialize the speed slider
@@ -31,8 +32,8 @@
         showVal: true,
         formatValue: function (val) {
           //console.log(val);
-          var formatVal = "Speed: " + val/4 + "x";
-          sliderVal = val/4;
+          var formatVal = "Speed: " + val/10 + "x";
+          sliderVal = val/10;
           return formatVal;
         }
       });
@@ -50,19 +51,7 @@
         stepActive = true;
       });
       $("#quickSort").click(function () {
-        clear();
-        runningAlgorithm = "quickSort";
-        //Initialize song
-        var song = harderBetterFasterStronger.slice(0);
-        var shuffeledSong = shuffle(song);
-        //Run quicksort to generate frames
-        quicksort(JSON.parse(JSON.stringify(shuffeledSong)), 0, shuffeledSong.length-1);
-        addSongFrames();
-
-        //Draw first initial state
-        draw(shuffeledSong.map(function(obj){return obj.index;}),[]);
-        writeSteps(quicksortCode, [0]);
-        drawFramesAndPlaySong();
+        playAlgorithm(quicksort, 'quickSort');
       });
       //Resets current sort by setting frame back to 0 and pausing
       $("#resetButton").click(function(){
@@ -91,11 +80,26 @@
   </div>
   <div class="footer">
     <div class="controls">
-      <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:20, grid:1, maxVal:20, minVal:1}"></div>
+      <div class="dropup" style="display: inline-block;">
+        <button class="btn btn-default dropdown-toggle footerButton" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Choose Song
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" style="background-color:#F80A94;" aria-labelledby="dropdownMenu2">
+          <li class="songName" onclick="selectSong('harderBetterFasterStronger')">Harder Better Faster Stronger</li>
+          <li class="songName" onclick="selectSong('chromatic3Oct')">Chromatic 3 Oct</li>
+          <li class="songName" onclick="selectSong('Major3Oct')">Major 3 Oct</li>
+          <li class="songName" onclick="selectSong('MajorPent3Oct')">Major Pent 3 Oct</li>
+          <li class="songName" onclick="selectSong('Minor3Oct')">Minor 3 Oct</li>
+          <li class="songName" onclick="selectSong('MinorPent3Oct')">Minor Pent 3 Oct</li>
+        </ul>
+      </div>
+      <div id="speedSlider" style="float: left" data-property="{rangeColor:'#F80A94',negativeColor:'#F80A94', startAt:50, grid:1, maxVal:50, minVal:1}"></div>
       <button type="button"  class="btn footerButton" id="pauseButton">Play</button>
       <button type="button"  class="btn footerButton" id="stepButton">Step</button>
       <button type="button"  class="btn footerButton" id="resetButton">Reset</button>
-      <button type="button"  class="btn footerButton" id="songButton">Choose Song</button>
+      <!--<button type="button"  class="btn footerButton" id="songButton">Choose Song</button>-->
+
     </div>
   </div>
 </body>
