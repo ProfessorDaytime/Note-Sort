@@ -29,9 +29,9 @@ function draw(frameData, importantIndices) {
    .attr("height", function(d) {
       return (h/frameData.length) * (d);
    })
-   .attr("fill", function(d) {
-      if(contains(importantIndices, d)){
-      return("White");
+   .attr("fill", function(d, i) {
+      if(contains(importantIndices, i)){
+        return("White");
       }
       else{
         if(d == 0){
