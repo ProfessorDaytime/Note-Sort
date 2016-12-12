@@ -49,14 +49,31 @@ function playAlgorithm(algFunc, algName){
   currLoop++;
   runningAlgorithm = algName;
   //Initialize song
-  //var song = harderBetterFasterStronger.slice(0);
   var shuffeledSong = shuffle(song);
-  //Run quicksort to generate frames
+  //Run sort to generate frames
   algFunc(JSON.parse(JSON.stringify(shuffeledSong)), 0, shuffeledSong.length-1);
   addSongFrames();
-
+  var code;
+  if (algName == "bubbleSort") {
+    code = bubblesortCode;
+  }
+  else if (algName == "mergeSort") {
+    code = mergesortCode;
+  }
+  else if (algName == "quickSort") {
+    code = quicksortCode;
+  }
+  else if (algName == "insertSort") {
+    code = insertsortCode;
+  }
+  else if (algName == "selectSort") {
+    code = selectsortCode;
+  }
+  else if (algName == "cocktailSort") {
+    code = cocktailsortCode;
+  }
   //Draw first initial state
   draw(shuffeledSong.map(function(obj){return obj.index;}),[]);
-  writeSteps(quicksortCode, [0]);
-  drawFramesAndPlaySong(currLoop);
+  writeSteps(code, [0]);
+  drawFramesAndPlaySong(currLoop, algName);
 }

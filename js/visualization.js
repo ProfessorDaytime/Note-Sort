@@ -56,7 +56,7 @@ function draw(frameData, importantIndices) {
   Set global variable "frames" to change the list of frames which will be drawn
 
 */
-function drawFramesAndPlaySong(loopNum){
+function drawFramesAndPlaySong(loopNum, algName){
   setTimeout(function(){
     if((!paused || stepActive) && loopNum == currLoop){
       var currFrame = frames[frame];
@@ -68,8 +68,27 @@ function drawFramesAndPlaySong(loopNum){
 
       d3.select("svg").remove();
       draw(currGraphVals, currFrame.importantIndices);
+      var code;
+      if (algName == "bubbleSort") {
+        code = bubblesortCode;
+      }
+      else if (algName == "mergeSort") {
+        code = mergesortCode;
+      }
+      else if (algName == "quickSort") {
+        code = quicksortCode;
+      }
+      else if (algName == "insertSort") {
+        code = insertsortCode;
+      }
+      else if (algName == "selectSort") {
+        code = selectsortCode;
+      }
+      else if (algName == "cocktailSort") {
+        code = cocktailsortCode;
+      }
 
-      writeSteps(quicksortCode, currFrame.algorithmSteps);
+      writeSteps(code, currFrame.algorithmSteps);
       //Play notes associated with current frame
       for(noteIndex of currFrame.importantIndices){
         if(noteIndex >=0 && noteIndex <= currFrame.data.length-1){
@@ -84,8 +103,8 @@ function drawFramesAndPlaySong(loopNum){
     stepActive = false;
 
     //Continue to loop until we reach the last frame or a new loop is created
-    if( frame < frames.length && frames.length>0 && loopNum == currLoop )
-      drawFramesAndPlaySong(loopNum);
+    if( frame < frames.length && frames.length > 0 && loopNum == currLoop )
+      drawFramesAndPlaySong(loopNum, algName);
   }, 100/sliderVal)
 }
 
