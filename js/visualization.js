@@ -23,11 +23,11 @@ function draw(frameData, importantIndices) {
       return i * (w / frameData.length);
    })
    .attr("y", function(d) {
-      return h-(h/frameData.length) * (d);
+      return h-(h/frameData.length) * (d+1);
    })
    .attr("width", w / frameData.length - barPadding)
    .attr("height", function(d) {
-      return (h/frameData.length) * (d);
+      return (h/frameData.length) * (d+1);
    })
    .attr("fill", function(d, i) {
       if(contains(importantIndices, i)){
@@ -35,7 +35,7 @@ function draw(frameData, importantIndices) {
       }
       else{
         if(d == 0){
-          return "(103,200,255)"
+          return "rgb(103,200,255)"
         }
         else{
           var r = Math.round(103+145*(d/(frameData.length-1)));
@@ -63,7 +63,7 @@ function drawFramesAndPlaySong(loopNum, algName){
 
       //Get the bar graph values for the frame
       var currGraphVals = currFrame.data.map(function(obj){
-        return obj.index + 1;//Seth added + 1
+        return obj.index //+ 1;//Seth added + 1
       });
 
       d3.select("svg").remove();
@@ -93,7 +93,7 @@ function drawFramesAndPlaySong(loopNum, algName){
       for(noteIndex of currFrame.importantIndices){
         if(noteIndex >=0 && noteIndex <= currFrame.data.length-1){
           var noteFilePath = currFrame.data[noteIndex].noteFile;
-		  
+
 		  //Seth Added this for Empty Notes
 		  if(noteFilePath != "no"){
 			var audio = new Audio(noteFilePath);
