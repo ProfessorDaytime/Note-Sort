@@ -63,7 +63,7 @@ function drawFramesAndPlaySong(loopNum, algName){
 
       //Get the bar graph values for the frame
       var currGraphVals = currFrame.data.map(function(obj){
-        return obj.index;
+        return obj.index + 1;//Seth added + 1
       });
 
       d3.select("svg").remove();
@@ -93,8 +93,12 @@ function drawFramesAndPlaySong(loopNum, algName){
       for(noteIndex of currFrame.importantIndices){
         if(noteIndex >=0 && noteIndex <= currFrame.data.length-1){
           var noteFilePath = currFrame.data[noteIndex].noteFile;
-          var audio = new Audio(noteFilePath);
-          audio.play();
+		  
+		  //Seth Added this for Empty Notes
+		  if(noteFilePath != "no"){
+			var audio = new Audio(noteFilePath);
+			audio.play();
+		  }
         }
       }
 
