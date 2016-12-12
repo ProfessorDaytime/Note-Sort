@@ -51,13 +51,45 @@
       $("#stepButton").click(function() {
         stepActive = true;
       });
+      $("#bubbleSort").click(function () {
+        playAlgorithm(bubblesort, 'bubbleSort');
+      });
+      $("#mergeSort").click(function () {
+        playAlgorithm(mergesort, 'mergeSort');
+      });
       $("#quickSort").click(function () {
         playAlgorithm(quicksort, 'quickSort');
       });
+      $("#insertSort").click(function () {
+        playAlgorithm(insertsort, 'insertSort');
+      });
+      $("#selectSort").click(function () {
+        playAlgorithm(selectsort, 'selectSort');
+      });
+      $("#cocktailSort").click(function () {
+        playAlgorithm(cocktailsort, 'cocktailSort');
+      });
+
       //Resets current sort by setting frame back to 0 and pausing
       $("#resetButton").click(function(){
-        if(runningAlgorithm=="quickSort")
+        if (runningAlgorithm == "bubbleSort") {
+          $("#bubbleSort").trigger("click");
+        }
+        if (runningAlgorithm == "mergeSort") {
+          $("#mergeSort").trigger("click");
+        }
+        if (runningAlgorithm == "quickSort") {
           $("#quickSort").trigger("click");
+        }
+        if (runningAlgorithm == "insertSort") {
+          $("#insertSort").trigger("click");
+        }
+        if (runningAlgorithm == "selectSort") {
+          $("#selectSort").trigger("click");
+        }
+        if (runningAlgorithm == "cocktailSort") {
+          $("#cocktailSort").trigger("click");
+        }
       });
     };
   </script>
